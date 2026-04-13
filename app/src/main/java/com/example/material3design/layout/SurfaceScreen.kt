@@ -9,6 +9,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.material3design.ui.theme.Dimens
 import com.example.material3design.ui.theme.Material3DesignTheme
 
 @Composable
@@ -17,8 +18,8 @@ fun SurfaceScreen() {
         modifier = Modifier
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
-            .padding(16.dp),
-        verticalArrangement = Arrangement.spacedBy(24.dp)
+            .padding(Dimens.spaceMedium),
+        verticalArrangement = Arrangement.spacedBy(Dimens.spaceLarge)
     ) {
         Text("Surface", style = MaterialTheme.typography.headlineMedium)
 
@@ -63,7 +64,7 @@ fun SurfaceScreen() {
 private fun TonalElevationSection() {
     val elevations = listOf(0.dp, 1.dp, 3.dp, 6.dp, 8.dp, 12.dp)
     Row(
-        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        horizontalArrangement = Arrangement.spacedBy(Dimens.spaceSmall),
         modifier = Modifier.fillMaxWidth()
     ) {
         elevations.forEach { dp ->
@@ -112,7 +113,7 @@ private fun ShadowElevationSection() {
 @Composable
 private fun ShapesSection() {
     Row(
-        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        horizontalArrangement = Arrangement.spacedBy(Dimens.spaceSmall),
         modifier = Modifier.fillMaxWidth()
     ) {
         listOf(
@@ -142,7 +143,7 @@ private fun ShapesSection() {
 
 @Composable
 private fun ContainerColorsSection() {
-    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+    Column(verticalArrangement = Arrangement.spacedBy(Dimens.spaceSmall)) {
         listOf(
             Triple("surface", MaterialTheme.colorScheme.surface, MaterialTheme.colorScheme.onSurface),
             Triple("surfaceVariant", MaterialTheme.colorScheme.surfaceVariant, MaterialTheme.colorScheme.onSurfaceVariant),
@@ -174,12 +175,12 @@ private fun ClickableSurfaceSection() {
     Surface(
         onClick = { counter++ },
         shape = MaterialTheme.shapes.medium,
-        tonalElevation = 3.dp,
+        tonalElevation = Dimens.elevationMedium,
         modifier = Modifier.fillMaxWidth()
     ) {
         Box(
             contentAlignment = Alignment.Center,
-            modifier = Modifier.padding(16.dp)
+            modifier = Modifier.padding(Dimens.spaceMedium)
         ) {
             Text(
                 "Toque aqui — cliques: $counter",

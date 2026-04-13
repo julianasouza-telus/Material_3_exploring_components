@@ -12,6 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.material3design.ui.theme.Dimens
 import com.example.material3design.ui.theme.Material3DesignTheme
 
 @Composable
@@ -20,8 +21,8 @@ fun SwitchScreen() {
         modifier = Modifier
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
-            .padding(16.dp),
-        verticalArrangement = Arrangement.spacedBy(24.dp)
+            .padding(Dimens.spaceMedium),
+        verticalArrangement = Arrangement.spacedBy(Dimens.spaceLarge)
     ) {
         Text("Switch", style = MaterialTheme.typography.headlineMedium)
 
@@ -44,17 +45,17 @@ fun SwitchScreen() {
 @Composable
 private fun BasicSwitchSection() {
     Row(
-        horizontalArrangement = Arrangement.spacedBy(32.dp),
+        horizontalArrangement = Arrangement.spacedBy(Dimens.spaceXLarge),
         verticalAlignment = Alignment.CenterVertically
     ) {
         var off by remember { mutableStateOf(false) }
         var on by remember { mutableStateOf(true) }
 
-        Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(4.dp)) {
+        Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(Dimens.spaceXSmall)) {
             Switch(checked = off, onCheckedChange = { off = it })
             Text("Off", style = MaterialTheme.typography.labelSmall)
         }
-        Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(4.dp)) {
+        Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(Dimens.spaceXSmall)) {
             Switch(checked = on, onCheckedChange = { on = it })
             Text("On", style = MaterialTheme.typography.labelSmall)
         }
@@ -64,7 +65,7 @@ private fun BasicSwitchSection() {
 @Composable
 private fun ThumbIconSection() {
     Row(
-        horizontalArrangement = Arrangement.spacedBy(32.dp),
+        horizontalArrangement = Arrangement.spacedBy(Dimens.spaceXLarge),
         verticalAlignment = Alignment.CenterVertically
     ) {
         var checked1 by remember { mutableStateOf(false) }
@@ -72,7 +73,7 @@ private fun ThumbIconSection() {
 
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(4.dp)
+            verticalArrangement = Arrangement.spacedBy(Dimens.spaceXSmall)
         ) {
             Switch(
                 checked = checked1,
@@ -86,7 +87,7 @@ private fun ThumbIconSection() {
 
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(4.dp)
+            verticalArrangement = Arrangement.spacedBy(Dimens.spaceXSmall)
         ) {
             Switch(
                 checked = checked2,
@@ -114,7 +115,7 @@ private fun LabeledSection() {
     )
     val states = remember { mutableStateListOf(true, false, false, true) }
 
-    Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+    Column(verticalArrangement = Arrangement.spacedBy(Dimens.spaceXSmall)) {
         labels.forEachIndexed { index, label ->
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -133,12 +134,12 @@ private fun LabeledSection() {
 
 @Composable
 private fun DisabledSection() {
-    Row(horizontalArrangement = Arrangement.spacedBy(32.dp)) {
-        Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(4.dp)) {
+    Row(horizontalArrangement = Arrangement.spacedBy(Dimens.spaceXLarge)) {
+        Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(Dimens.spaceXSmall)) {
             Switch(checked = false, onCheckedChange = {}, enabled = false)
             Text("Off", style = MaterialTheme.typography.labelSmall)
         }
-        Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(4.dp)) {
+        Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(Dimens.spaceXSmall)) {
             Switch(checked = true, onCheckedChange = {}, enabled = false)
             Text("On", style = MaterialTheme.typography.labelSmall)
         }

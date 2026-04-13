@@ -11,6 +11,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.material3design.ui.theme.Dimens
 import com.example.material3design.ui.theme.Material3DesignTheme
 import kotlinx.coroutines.launch
 
@@ -71,8 +72,8 @@ fun ScaffoldScreen() {
                 .padding(padding)
                 .fillMaxSize()
                 .verticalScroll(rememberScrollState())
-                .padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(24.dp)
+                .padding(Dimens.spaceMedium),
+            verticalArrangement = Arrangement.spacedBy(Dimens.spaceLarge)
         ) {
             Text("Scaffold", style = MaterialTheme.typography.headlineMedium)
 
@@ -122,7 +123,7 @@ private fun SlotRow(slot: String, description: String) {
         modifier = Modifier.fillMaxWidth(),
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)
     ) {
-        Column(modifier = Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(2.dp)) {
+        Column(modifier = Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(Dimens.spaceXxSmall)) {
             Text(slot, style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.primary)
             Text(description, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
         }

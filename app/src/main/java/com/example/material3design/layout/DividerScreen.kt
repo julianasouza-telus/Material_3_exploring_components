@@ -11,6 +11,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.material3design.ui.theme.Dimens
 import com.example.material3design.ui.theme.Material3DesignTheme
 
 @Composable
@@ -19,8 +20,8 @@ fun DividerScreen() {
         modifier = Modifier
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
-            .padding(16.dp),
-        verticalArrangement = Arrangement.spacedBy(24.dp)
+            .padding(Dimens.spaceMedium),
+        verticalArrangement = Arrangement.spacedBy(Dimens.spaceLarge)
     ) {
         Text("Divider", style = MaterialTheme.typography.headlineMedium)
 
@@ -86,7 +87,7 @@ private fun IndentSection() {
 private fun ListWithDividersSection() {
     Surface(
         shape = MaterialTheme.shapes.medium,
-        tonalElevation = 1.dp
+        tonalElevation = Dimens.elevationLow
     ) {
         Column {
             listOf("Alice", "Bob", "Carol", "David").forEachIndexed { index, name ->
@@ -107,7 +108,7 @@ private fun ListWithDividersSection() {
 
 @Composable
 private fun VerticalDividerSection() {
-    Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
+    Column(verticalArrangement = Arrangement.spacedBy(Dimens.spaceMedium)) {
         Text(
             "VerticalDivider separa itens em layouts horizontais.",
             style = MaterialTheme.typography.bodySmall,
@@ -116,15 +117,15 @@ private fun VerticalDividerSection() {
 
         Surface(
             shape = MaterialTheme.shapes.medium,
-            tonalElevation = 1.dp,
+            tonalElevation = Dimens.elevationLow,
             modifier = Modifier.fillMaxWidth()
         ) {
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(IntrinsicSize.Min)
-                    .padding(horizontal = 16.dp, vertical = 12.dp),
-                horizontalArrangement = Arrangement.spacedBy(16.dp),
+                    .padding(horizontal = Dimens.spaceMedium, vertical = 12.dp),
+                horizontalArrangement = Arrangement.spacedBy(Dimens.spaceMedium),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text("Seção A", modifier = Modifier.weight(1f), style = MaterialTheme.typography.bodyMedium)

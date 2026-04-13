@@ -11,6 +11,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.material3design.ui.theme.Dimens
 import com.example.material3design.ui.theme.Material3DesignTheme
 import kotlinx.coroutines.launch
 
@@ -31,8 +32,8 @@ fun BottomSheetsScreen() {
                 .padding(padding)
                 .fillMaxSize()
                 .verticalScroll(rememberScrollState())
-                .padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(24.dp)
+                .padding(Dimens.spaceMedium),
+            verticalArrangement = Arrangement.spacedBy(Dimens.spaceLarge)
         ) {
             Text("Bottom Sheets", style = MaterialTheme.typography.headlineMedium)
 
@@ -44,15 +45,15 @@ fun BottomSheetsScreen() {
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
-            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            Row(horizontalArrangement = Arrangement.spacedBy(Dimens.spaceSmall)) {
                 Button(onClick = { scope.launch { scaffoldState.bottomSheetState.expand() } }) {
                     Icon(Icons.Default.KeyboardArrowUp, contentDescription = null)
-                    Spacer(Modifier.width(4.dp))
+                    Spacer(Modifier.width(Dimens.spaceXSmall))
                     Text("Expandir")
                 }
                 OutlinedButton(onClick = { scope.launch { scaffoldState.bottomSheetState.partialExpand() } }) {
                     Icon(Icons.Default.KeyboardArrowDown, contentDescription = null)
-                    Spacer(Modifier.width(4.dp))
+                    Spacer(Modifier.width(Dimens.spaceXSmall))
                     Text("Minimizar")
                 }
             }
@@ -69,7 +70,7 @@ fun BottomSheetsScreen() {
             )
             Button(onClick = { showModal = true }) {
                 Icon(Icons.Default.OpenInNew, contentDescription = null)
-                Spacer(Modifier.width(8.dp))
+                Spacer(Modifier.width(Dimens.spaceSmall))
                 Text("Abrir Modal Bottom Sheet")
             }
         }
@@ -93,9 +94,9 @@ private fun PersistentSheetContent() {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp, vertical = 8.dp),
+            .padding(horizontal = Dimens.spaceMedium, vertical = Dimens.spaceSmall),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(8.dp)
+        verticalArrangement = Arrangement.spacedBy(Dimens.spaceSmall)
     ) {
         Text(
             "BottomSheetScaffold — Deslize para expandir",
@@ -108,7 +109,7 @@ private fun PersistentSheetContent() {
         )
         Row(
             modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
+            horizontalArrangement = Arrangement.spacedBy(Dimens.spaceSmall)
         ) {
             listOf("Ação 1", "Ação 2", "Ação 3").forEach { label ->
                 AssistChip(
@@ -117,7 +118,7 @@ private fun PersistentSheetContent() {
                 )
             }
         }
-        Spacer(Modifier.height(8.dp))
+        Spacer(Modifier.height(Dimens.spaceSmall))
     }
 }
 
@@ -126,7 +127,7 @@ private fun ModalSheetContent(onDismiss: () -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(16.dp)
+            .padding(Dimens.spaceMedium)
             .navigationBarsPadding(),
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
@@ -152,7 +153,7 @@ private fun ModalSheetContent(onDismiss: () -> Unit) {
             )
         }
 
-        Spacer(Modifier.height(8.dp))
+        Spacer(Modifier.height(Dimens.spaceSmall))
         TextButton(
             onClick = onDismiss,
             modifier = Modifier.align(Alignment.End)

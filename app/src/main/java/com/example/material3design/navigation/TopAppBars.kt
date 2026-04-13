@@ -13,6 +13,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.material3design.ui.theme.Dimens
 import com.example.material3design.ui.theme.Material3DesignTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -22,8 +23,8 @@ fun TopAppBarsScreen() {
         modifier = Modifier
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
-            .padding(16.dp),
-        verticalArrangement = Arrangement.spacedBy(32.dp)
+            .padding(Dimens.spaceMedium),
+        verticalArrangement = Arrangement.spacedBy(Dimens.spaceXLarge)
     ) {
         Text("Top App Bars", style = MaterialTheme.typography.headlineMedium)
 

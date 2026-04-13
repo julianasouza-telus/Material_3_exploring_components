@@ -13,6 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.material3design.ui.theme.Dimens
 import com.example.material3design.ui.theme.Material3DesignTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -36,11 +37,11 @@ fun SearchBarScreen() {
                 .verticalScroll(rememberScrollState())
                 .padding(
                     top = 80.dp,
-                    start = 16.dp,
-                    end = 16.dp,
-                    bottom = 16.dp
+                    start = Dimens.spaceMedium,
+                    end = Dimens.spaceMedium,
+                    bottom = Dimens.spaceMedium
                 ),
-            verticalArrangement = Arrangement.spacedBy(32.dp)
+            verticalArrangement = Arrangement.spacedBy(Dimens.spaceXLarge)
         ) {
             Text("Search Bar", style = MaterialTheme.typography.headlineMedium)
 
@@ -91,13 +92,13 @@ fun SearchBarScreen() {
             modifier = Modifier
                 .align(Alignment.TopCenter)
                 .fillMaxWidth()
-                .padding(horizontal = if (active) 0.dp else 16.dp)
+                .padding(horizontal = if (active) 0.dp else Dimens.spaceMedium)
         ) {
             val filtered = suggestions.filter { it.contains(query, ignoreCase = true) }
             if (filtered.isEmpty()) {
                 Text(
                     "Nenhum resultado para \"$query\"",
-                    modifier = Modifier.padding(16.dp),
+                    modifier = Modifier.padding(Dimens.spaceMedium),
                     style = MaterialTheme.typography.bodyMedium
                 )
             } else {

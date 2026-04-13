@@ -11,6 +11,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.material3design.ui.theme.Dimens
 import com.example.material3design.ui.theme.Material3DesignTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -20,8 +21,8 @@ fun TooltipScreen() {
         modifier = Modifier
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
-            .padding(16.dp),
-        verticalArrangement = Arrangement.spacedBy(24.dp)
+            .padding(Dimens.spaceMedium),
+        verticalArrangement = Arrangement.spacedBy(Dimens.spaceLarge)
     ) {
         Text("Tooltip", style = MaterialTheme.typography.headlineMedium)
 
@@ -67,7 +68,7 @@ fun TooltipScreen() {
 @Composable
 private fun PlainTooltipSection() {
     Row(
-        horizontalArrangement = Arrangement.spacedBy(16.dp),
+        horizontalArrangement = Arrangement.spacedBy(Dimens.spaceMedium),
         verticalAlignment = Alignment.CenterVertically
     ) {
         TooltipBox(
@@ -126,7 +127,7 @@ private fun PlainTooltipButtonSection() {
     ) {
         Button(onClick = {}) {
             Icon(Icons.Default.Check, contentDescription = null)
-            Spacer(Modifier.width(8.dp))
+            Spacer(Modifier.width(Dimens.spaceSmall))
             Text("Salvar")
         }
     }
@@ -182,7 +183,7 @@ private fun PersistentRichTooltipSection() {
     ) {
         FilledTonalButton(onClick = {}) {
             Icon(Icons.Default.Settings, contentDescription = null)
-            Spacer(Modifier.width(8.dp))
+            Spacer(Modifier.width(Dimens.spaceSmall))
             Text("Configurações")
         }
     }

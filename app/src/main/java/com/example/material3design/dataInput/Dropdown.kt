@@ -10,6 +10,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.material3design.ui.theme.Dimens
 import com.example.material3design.ui.theme.Material3DesignTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -19,8 +20,8 @@ fun DropdownScreen() {
         modifier = Modifier
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
-            .padding(16.dp),
-        verticalArrangement = Arrangement.spacedBy(24.dp)
+            .padding(Dimens.spaceMedium),
+        verticalArrangement = Arrangement.spacedBy(Dimens.spaceLarge)
     ) {
         Text("Dropdown / Menus", style = MaterialTheme.typography.headlineMedium)
 
@@ -128,7 +129,7 @@ private fun FreeDropdownSection() {
     Box {
         OutlinedButton(onClick = { expanded = true }) {
             Icon(Icons.Default.MoreVert, contentDescription = null)
-            Spacer(Modifier.width(4.dp))
+            Spacer(Modifier.width(Dimens.spaceXSmall))
             Text("Mais opções")
         }
         DropdownMenu(
