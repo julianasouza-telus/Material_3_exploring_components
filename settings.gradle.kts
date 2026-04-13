@@ -20,5 +20,7 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "Material3Design"
-include(":app")
- 
+include(":showcase-app")
+include(":final-app")
+include(":task-app")
+include(":core:ui")
