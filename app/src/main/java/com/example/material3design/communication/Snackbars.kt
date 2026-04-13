@@ -1,12 +1,15 @@
 package com.example.material3design.communication
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.material3design.ui.theme.Material3DesignTheme
 import kotlinx.coroutines.launch
 
 @Composable
@@ -76,7 +79,7 @@ fun SnackbarsScreen() {
 @Preview(showBackground = true)
 @Composable
 fun BasicSnackbarScreenPreview() {
-    MaterialTheme {
+    Material3DesignTheme {
         Scaffold(
             snackbarHost = {
                 SnackbarHost(
@@ -106,8 +109,14 @@ fun BasicSnackbarScreenPreview() {
 @Preview(showBackground = true)
 @Composable
 fun SnackbarWithActionPreview() {
-    MaterialTheme {
-        Snackbar {
+    Material3DesignTheme {
+        Snackbar(
+            action = {
+                TextButton(onClick = {}) {
+                    Text("Undo")
+                }
+            }
+        ) {
             Text("Snackbar with Action")
         }
     }
@@ -116,11 +125,11 @@ fun SnackbarWithActionPreview() {
 @Preview(showBackground = true)
 @Composable
 fun SnackbarWithDismissPreview() {
-    MaterialTheme {
+    Material3DesignTheme {
         Snackbar(
-            action = {
-                TextButton(onClick = {}) {
-                    Text("Undo")
+            dismissAction = {
+                IconButton(onClick = {}) {
+                    Icon(Icons.Default.Close, contentDescription = "Dismiss")
                 }
             }
         ) {
@@ -132,7 +141,7 @@ fun SnackbarWithDismissPreview() {
 @Preview(showBackground = true)
 @Composable
 fun IndefiniteSnackbarPreview() {
-    MaterialTheme {
+    Material3DesignTheme {
         Snackbar(
             action = {
                 TextButton(onClick = {}) {
@@ -140,7 +149,21 @@ fun IndefiniteSnackbarPreview() {
                 }
             }
         ) {
-            Text("Indefinite Snackbar")
+            Text("Indefinite Snackbar — persists until action")
+        }
+    }
+}
+
+@Preview(name = "Dark", showBackground = true)
+@Composable
+fun SnackbarsDarkPreview() {
+    Material3DesignTheme(darkTheme = true) {
+        Snackbar(
+            action = {
+                TextButton(onClick = {}) { Text("OK") }
+            }
+        ) {
+            Text("Dark mode snackbar")
         }
     }
 }

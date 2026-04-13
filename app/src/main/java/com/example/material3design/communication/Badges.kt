@@ -1,6 +1,8 @@
 package com.example.material3design.communication
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Favorite
@@ -11,12 +13,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.material3design.ui.theme.Material3DesignTheme
 
 @Composable
 fun BadgesScreen() {
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .verticalScroll(rememberScrollState())
             .padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(24.dp)
     ) {
@@ -149,10 +153,18 @@ private fun SectionTitle(title: String) {
 
 /* ---------- PREVIEWS ---------- */
 
-@Preview(showBackground = true)
+@Preview(name = "Light", showBackground = true)
 @Composable
 private fun BadgesScreenPreview() {
-    MaterialTheme {
+    Material3DesignTheme {
+        BadgesScreen()
+    }
+}
+
+@Preview(name = "Dark", showBackground = true)
+@Composable
+private fun BadgesScreenDarkPreview() {
+    Material3DesignTheme(darkTheme = true) {
         BadgesScreen()
     }
 }

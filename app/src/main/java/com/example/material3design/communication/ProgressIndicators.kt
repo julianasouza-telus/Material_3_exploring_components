@@ -1,38 +1,42 @@
 package com.example.material3design.communication
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.material3design.ui.theme.Material3DesignTheme
 
 @Composable
 fun ProgressIndicatorsScreen() {
     var progress by remember { mutableStateOf(0.4f) }
-    var loading by remember { mutableStateOf(true) }
+    var indeterminate by remember { mutableStateOf(false) }
 
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .verticalScroll(rememberScrollState())
             .padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(32.dp)
     ) {
         Text("Progress Indicators", style = MaterialTheme.typography.headlineMedium)
 
         SectionTitle("Circular Indicators")
-        CircularSection(progress, loading)
+        CircularSection(progress = progress, indeterminate = indeterminate)
 
         SectionTitle("Linear Indicators")
-        LinearSection(progress, loading)
+        LinearSection(progress = progress, indeterminate = indeterminate)
 
-        SectionTitle("States & Controls")
+        SectionTitle("Controls")
         ControlsSection(
             progress = progress,
             onProgressChange = { progress = it },
-            loading = loading,
-            onLoadingChange = { loading = it }
+            indeterminate = indeterminate,
+            onIndeterminateChange = { indeterminate = it }
         )
     }
 }
@@ -40,69 +44,97 @@ fun ProgressIndicatorsScreen() {
 /* ---------- CIRCULAR ---------- */
 
 @Composable
-private fun CircularSection(progress: Float, loading: Boolean) {
+private fun CircularSection(progress: Float, indeterminate: Boolean) {
     Row(
-        horizontalArrangement = Arrangement.spacedBy(32.dp),
+        horizontalArrangement = Arrangement.spacedBy(24.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        // Indeterminate
-        CircularProgressIndicator()
+        Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(4.dp)) {
+            if (indeterminate) CircularProgressIndicator()
+            else CircularProgressIndicator(progress = { progress })
+            Text("Default", style = MaterialTheme.typography.labelSmall)
+        }
 
-        // Determinate
-        CircularProgressIndicator(progress = progress)
+        Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(4.dp)) {
+            if (indeterminate) {
+                CircularProgressIndicator(
+                    modifier = Modifier.size(24.dp),
+                    strokeWidth = 2.dp
+                )
+            } else {
+                CircularProgressIndicator(
+                    progress = { progress },
+                    modifier = Modifier.size(24.dp),
+                    strokeWidth = 2.dp
+                )
+            }
+            Text("Small", style = MaterialTheme.typography.labelSmall)
+        }
 
-        // Small size
-        CircularProgressIndicator(
-            progress = progress,
-            modifier = Modifier.size(24.dp),
-            strokeWidth = 2.dp
-        )
+        Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(4.dp)) {
+            if (indeterminate) {
+                CircularProgressIndicator(color = MaterialTheme.colorScheme.tertiary)
+            } else {
+                CircularProgressIndicator(
+                    progress = { progress },
+                    color = MaterialTheme.colorScheme.tertiary
+                )
+            }
+            Text("Tertiary", style = MaterialTheme.typography.labelSmall)
+        }
 
-        // Custom color
-        CircularProgressIndicator(
-            progress = progress,
-            color = MaterialTheme.colorScheme.tertiary
-        )
-
-        // Disabled (visual example)
-        CircularProgressIndicator(
-            progress = progress,
-            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.3f)
-        )
+        Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(4.dp)) {
+            CircularProgressIndicator(
+                progress = { progress },
+                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.3f),
+                trackColor = MaterialTheme.colorScheme.surfaceVariant
+            )
+            Text("Muted", style = MaterialTheme.typography.labelSmall)
+        }
     }
 }
 
 /* ---------- LINEAR ---------- */
 
 @Composable
-private fun LinearSection(progress: Float, loading: Boolean) {
+private fun LinearSection(progress: Float, indeterminate: Boolean) {
     Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
-        // Indeterminate
-        LinearProgressIndicator()
+        Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+            if (indeterminate) LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
+            else LinearProgressIndicator(progress = { progress }, modifier = Modifier.fillMaxWidth())
+            Text("Default", style = MaterialTheme.typography.labelSmall)
+        }
 
-        // Determinate
-        LinearProgressIndicator(progress = progress)
+        Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+            if (indeterminate) {
+                LinearProgressIndicator(
+                    modifier = Modifier.fillMaxWidth().height(8.dp)
+                )
+            } else {
+                LinearProgressIndicator(
+                    progress = { progress },
+                    modifier = Modifier.fillMaxWidth().height(8.dp)
+                )
+            }
+            Text("Thick (8 dp)", style = MaterialTheme.typography.labelSmall)
+        }
 
-        // Custom height
-        LinearProgressIndicator(
-            progress = progress,
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(8.dp)
-        )
-
-        // Custom color
-        LinearProgressIndicator(
-            progress = progress,
-            color = MaterialTheme.colorScheme.secondary
-        )
-
-        // Track + color customization
-        LinearProgressIndicator(
-            progress = progress,
-            color = MaterialTheme.colorScheme.tertiary,
-            trackColor = MaterialTheme.colorScheme.surfaceVariant
-        )
+        Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+            if (indeterminate) {
+                LinearProgressIndicator(
+                    modifier = Modifier.fillMaxWidth(),
+                    color = MaterialTheme.colorScheme.secondary
+                )
+            } else {
+                LinearProgressIndicator(
+                    progress = { progress },
+                    modifier = Modifier.fillMaxWidth(),
+                    color = MaterialTheme.colorScheme.secondary,
+                    trackColor = MaterialTheme.colorScheme.surfaceVariant
+                )
+            }
+            Text("Secondary color", style = MaterialTheme.typography.labelSmall)
+        }
     }
 }
 
@@ -112,22 +144,27 @@ private fun LinearSection(progress: Float, loading: Boolean) {
 private fun ControlsSection(
     progress: Float,
     onProgressChange: (Float) -> Unit,
-    loading: Boolean,
-    onLoadingChange: (Boolean) -> Unit
+    indeterminate: Boolean,
+    onIndeterminateChange: (Boolean) -> Unit
 ) {
-    Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
-        Text("Progress: ${(progress * 100).toInt()}%")
-
+    Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Text("Progress")
+            Text("${(progress * 100).toInt()}%")
+        }
         Slider(
             value = progress,
             onValueChange = onProgressChange,
-            valueRange = 0f..1f
+            enabled = !indeterminate
         )
 
         Row(verticalAlignment = Alignment.CenterVertically) {
-            Switch(checked = loading, onCheckedChange = onLoadingChange)
+            Switch(checked = indeterminate, onCheckedChange = onIndeterminateChange)
             Spacer(Modifier.width(8.dp))
-            Text(if (loading) "Indeterminate" else "Determinate")
+            Text(if (indeterminate) "Indeterminate" else "Determinate")
         }
     }
 }
@@ -141,18 +178,18 @@ private fun SectionTitle(title: String) {
 
 /* ---------- PREVIEWS ---------- */
 
-@Preview(showBackground = true)
+@Preview(name = "Light", showBackground = true)
 @Composable
-private fun ProgressIndicatorsScreenPreview() {
-    MaterialTheme {
+private fun ProgressIndicatorsLightPreview() {
+    Material3DesignTheme {
         ProgressIndicatorsScreen()
     }
 }
 
-@Preview(showBackground = true)
+@Preview(name = "Dark", showBackground = true)
 @Composable
 private fun ProgressIndicatorsDarkPreview() {
-    MaterialTheme(colorScheme = darkColorScheme()) {
+    Material3DesignTheme(darkTheme = true) {
         ProgressIndicatorsScreen()
     }
 }

@@ -3,6 +3,8 @@ package com.example.material3design.containment
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
@@ -14,6 +16,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.material3design.ui.theme.Material3DesignTheme
 
 @Composable
 fun CardsScreen() {
@@ -23,6 +26,7 @@ fun CardsScreen() {
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .verticalScroll(rememberScrollState())
             .padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(32.dp)
     ) {
@@ -279,18 +283,18 @@ private fun SectionTitle(title: String) {
 
 /* ---------- PREVIEWS ---------- */
 
-@Preview(showBackground = true)
+@Preview(name = "Light", showBackground = true)
 @Composable
 private fun CardsScreenPreview() {
-    MaterialTheme {
+    Material3DesignTheme {
         CardsScreen()
     }
 }
 
-@Preview(showBackground = true)
+@Preview(name = "Dark", showBackground = true)
 @Composable
 private fun CardsDarkPreview() {
-    MaterialTheme(colorScheme = darkColorScheme()) {
+    Material3DesignTheme(darkTheme = true) {
         CardsScreen()
     }
 }

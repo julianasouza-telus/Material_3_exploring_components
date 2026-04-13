@@ -1,6 +1,8 @@
 package com.example.material3design.containment
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Info
@@ -11,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
+import com.example.material3design.ui.theme.Material3DesignTheme
 
 @Composable
 fun DialogsScreen() {
@@ -24,6 +27,7 @@ fun DialogsScreen() {
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .verticalScroll(rememberScrollState())
             .padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(24.dp)
     ) {
@@ -55,7 +59,7 @@ fun DialogsScreen() {
     if (showWithIcon) IconDialog(onDismiss = { showWithIcon = false })
     if (showWithInput) InputDialog(onDismiss = { showWithInput = false })
     if (showDestructive) DestructiveDialog(onDismiss = { showDestructive = false })
-    if (showLoading) LoadingDialog()
+    if (showLoading) LoadingDialog(onDismiss = { showLoading = false })
     if (showFullscreen) FullscreenDialog(onDismiss = { showFullscreen = false })
 }
 
@@ -141,9 +145,9 @@ private fun DestructiveDialog(onDismiss: () -> Unit) {
 }
 
 @Composable
-private fun LoadingDialog() {
+private fun LoadingDialog(onDismiss: () -> Unit = {}) {
     AlertDialog(
-        onDismissRequest = {},
+        onDismissRequest = onDismiss,
         title = { Text("Loading") },
         text = {
             Row(
@@ -154,7 +158,10 @@ private fun LoadingDialog() {
                 Text("Please wait...")
             }
         },
-        confirmButton = {}
+        confirmButton = {},
+        dismissButton = {
+            TextButton(onClick = onDismiss) { Text("Cancel") }
+        }
     )
 }
 
@@ -197,50 +204,44 @@ private fun FullscreenDialog(onDismiss: () -> Unit) {
 
 // ---------- Previews ----------
 
-@Preview(showBackground = true)
+@Preview(name = "Basic", showBackground = true)
 @Composable
-fun BasicDialogPreview() {
-    MaterialTheme {
-        BasicDialog(onDismiss = {})
-    }
+private fun BasicDialogPreview() {
+    Material3DesignTheme { BasicDialog(onDismiss = {}) }
 }
 
-@Preview(showBackground = true)
+@Preview(name = "With Icon", showBackground = true)
 @Composable
-fun IconDialogPreview() {
-    MaterialTheme {
-        IconDialog(onDismiss = {})
-    }
+private fun IconDialogPreview() {
+    Material3DesignTheme { IconDialog(onDismiss = {}) }
 }
 
-@Preview(showBackground = true)
+@Preview(name = "With Input", showBackground = true)
 @Composable
-fun InputDialogPreview() {
-    MaterialTheme {
-        InputDialog(onDismiss = {})
-    }
+private fun InputDialogPreview() {
+    Material3DesignTheme { InputDialog(onDismiss = {}) }
 }
 
-@Preview(showBackground = true)
+@Preview(name = "Destructive", showBackground = true)
 @Composable
-fun DestructiveDialogPreview() {
-    MaterialTheme {
-        DestructiveDialog(onDismiss = {})
-    }
+private fun DestructiveDialogPreview() {
+    Material3DesignTheme { DestructiveDialog(onDismiss = {}) }
 }
 
-@Preview(showBackground = true)
+@Preview(name = "Loading", showBackground = true)
 @Composable
-fun LoadingDialogPreview() {
-    MaterialTheme {
-        LoadingDialog()
-    }
+private fun LoadingDialogPreview() {
+    Material3DesignTheme { LoadingDialog() }
 }
 
-@Preview(showBackground = true)
+@Preview(name = "Fullscreen", showBackground = true)
 @Composable
-fun FullscreenDialogPreview() {
-    MaterialTheme {
-        FullscreenDialog(onDismiss = {})
-    }
+private fun FullscreenDialogPreview() {
+    Material3DesignTheme { FullscreenDialog(onDismiss = {}) }
+}
+
+@Preview(name = "Dark — Basic", showBackground = true)
+@Composable
+private fun DialogsDarkPreview() {
+    Material3DesignTheme(darkTheme = true) { BasicDialog(onDismiss = {}) }
 }
