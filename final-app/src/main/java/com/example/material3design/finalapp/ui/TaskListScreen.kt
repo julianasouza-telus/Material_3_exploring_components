@@ -8,7 +8,9 @@ import androidx.compose.animation.scaleIn
 import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CheckCircleOutline
 import androidx.compose.material3.*
@@ -29,7 +31,8 @@ fun TaskListScreen(
     onToggleComplete: (String) -> Unit,
     onToggleImportant: (String) -> Unit,
     onDeleteClick: (String) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    listState: LazyListState = rememberLazyListState()
 ) {
     Column(modifier = modifier.fillMaxSize()) {
         Row(
@@ -84,6 +87,7 @@ fun TaskListScreen(
                 )
             } else {
                 LazyColumn(
+                    state = listState,
                     modifier = Modifier.fillMaxSize(),
                     contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
                     verticalArrangement = Arrangement.spacedBy(8.dp)
@@ -93,8 +97,7 @@ fun TaskListScreen(
                             task = task,
                             onToggleComplete = onToggleComplete,
                             onToggleImportant = onToggleImportant,
-                            onDeleteClick = onDeleteClick,
-                            modifier = Modifier.animateItem()
+                            onDeleteClick = onDeleteClick
                         )
                     }
                 }
