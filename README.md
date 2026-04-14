@@ -1,4 +1,4 @@
-# Material 3 Design — Mentoria Jetpack Compose
+# Material 3 Design — Mentoria
 
 > Repositório oficial da mentoria **Material 3 na Prática com Jetpack Compose**.  
 > Contém um catálogo completo de componentes, um app de referência finalizado e um módulo em branco para desenvolvimento em aula.
