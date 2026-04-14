@@ -1,6 +1,10 @@
 package com.example.material3design.finalapp.ui
 
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.*
+import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
@@ -8,9 +12,9 @@ import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.outlined.StarOutline
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -27,11 +31,39 @@ fun TaskCard(
     onDeleteClick: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    Card(
+    val titleColor by animateColorAsState(
+        targetValue = if (task.completed)
+            MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f)
+        else
+            MaterialTheme.colorScheme.onSurface,
+        animationSpec = tween(durationMillis = 200),
+        label = "titleColor"
+    )
+    val descriptionAlpha by animateFloatAsState(
+        targetValue = if (task.completed) 0.38f else 0.6f,
+        animationSpec = tween(durationMillis = 200),
+        label = "descriptionAlpha"
+    )
+
+    // Animação B — star color transition
+    val starTint by animateColorAsState(
+        targetValue = if (task.important)
+            TaskFlowSecondary
+        else
+            MaterialTheme.colorScheme.onSurface.copy(alpha = 0.38f),
+        animationSpec = tween(durationMillis = 200),
+        label = "starTint"
+    )
+
+    // Animação C — press elevation lift via ElevatedCard nativo do M3
+    // animateContentSize() — card cresce/encolhe suavemente quando chips aparecem/somem
+    ElevatedCard(
+        onClick = {},
         shape = RoundedCornerShape(12.dp),
-        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
-        modifier = modifier.fillMaxWidth()
+        colors = CardDefaults.elevatedCardColors(containerColor = MaterialTheme.colorScheme.surface),
+        modifier = modifier
+            .fillMaxWidth()
+            .animateContentSize()
     ) {
         Row(
             modifier = Modifier
@@ -54,10 +86,7 @@ fun TaskCard(
                     text = task.title,
                     style = MaterialTheme.typography.bodyLarge,
                     textDecoration = if (task.completed) TextDecoration.LineThrough else TextDecoration.None,
-                    color = if (task.completed)
-                        MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f)
-                    else
-                        MaterialTheme.colorScheme.onSurface
+                    color = titleColor
                 )
                 if (task.description.isNotEmpty()) {
                     Spacer(Modifier.height(2.dp))
@@ -65,9 +94,7 @@ fun TaskCard(
                         text = task.description,
                         style = MaterialTheme.typography.bodySmall,
                         textDecoration = if (task.completed) TextDecoration.LineThrough else TextDecoration.None,
-                        color = MaterialTheme.colorScheme.onSurface.copy(
-                            alpha = if (task.completed) 0.38f else 0.6f
-                        ),
+                        color = MaterialTheme.colorScheme.onSurface.copy(alpha = descriptionAlpha),
                         maxLines = 2
                     )
                 }
@@ -110,10 +137,7 @@ fun TaskCard(
                 Icon(
                     imageVector = if (task.important) Icons.Filled.Star else Icons.Outlined.StarOutline,
                     contentDescription = if (task.important) "Remove from favorites" else "Add to favorites",
-                    tint = if (task.important)
-                        TaskFlowSecondary
-                    else
-                        MaterialTheme.colorScheme.onSurface.copy(alpha = 0.38f)
+                    tint = starTint
                 )
             }
 

@@ -1,5 +1,9 @@
 package com.example.material3design.finalapp
 
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
+import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -106,23 +110,34 @@ fun TaskFlowApp() {
         },
         containerColor = TaskFlowBackground
     ) { padding ->
-        when (currentTab) {
-            0 -> TaskListScreen(
-                tasks = tasks,
-                filter = filter,
-                onFilterChange = { filter = it },
-                onToggleComplete = { toggleComplete(it) },
-                onToggleImportant = { toggleImportant(it) },
-                onDeleteClick = { taskToDelete = it },
-                modifier = Modifier.padding(padding)
-            )
-            1 -> FavoritesScreen(
-                tasks = tasks.filter { it.important },
-                onToggleComplete = { toggleComplete(it) },
-                onToggleImportant = { toggleImportant(it) },
-                onDeleteClick = { taskToDelete = it },
-                modifier = Modifier.padding(padding)
-            )
+        AnimatedContent(
+            targetState = currentTab,
+            transitionSpec = {
+                if (targetState > initialState)
+                    slideInHorizontally { it } togetherWith slideOutHorizontally { -it }
+                else
+                    slideInHorizontally { -it } togetherWith slideOutHorizontally { it }
+            },
+            label = "tabTransition"
+        ) { tab ->
+            when (tab) {
+                0 -> TaskListScreen(
+                    tasks = tasks,
+                    filter = filter,
+                    onFilterChange = { filter = it },
+                    onToggleComplete = { toggleComplete(it) },
+                    onToggleImportant = { toggleImportant(it) },
+                    onDeleteClick = { taskToDelete = it },
+                    modifier = Modifier.padding(padding)
+                )
+                1 -> FavoritesScreen(
+                    tasks = tasks.filter { it.important },
+                    onToggleComplete = { toggleComplete(it) },
+                    onToggleImportant = { toggleImportant(it) },
+                    onDeleteClick = { taskToDelete = it },
+                    modifier = Modifier.padding(padding)
+                )
+            }
         }
     }
 

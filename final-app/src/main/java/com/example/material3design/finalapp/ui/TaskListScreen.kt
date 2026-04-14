@@ -1,5 +1,11 @@
 package com.example.material3design.finalapp.ui
 
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.scaleIn
+import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -25,12 +31,6 @@ fun TaskListScreen(
     onDeleteClick: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val filteredTasks = when (filter) {
-        "important" -> tasks.filter { it.important }
-        "completed" -> tasks.filter { it.completed }
-        else -> tasks
-    }
-
     Column(modifier = modifier.fillMaxSize()) {
         Row(
             modifier = Modifier
@@ -55,32 +55,48 @@ fun TaskListScreen(
             )
         }
 
-        if (filteredTasks.isEmpty()) {
-            EmptyState(
-                message = when (filter) {
-                    "important" -> "No important tasks yet"
-                    "completed" -> "No completed tasks yet"
-                    else -> "No tasks yet. Tap + to add one!"
-                },
-                modifier = Modifier
-                    .weight(1f)
-                    .fillMaxWidth()
-            )
-        } else {
-            LazyColumn(
-                modifier = Modifier
-                    .weight(1f)
-                    .fillMaxWidth(),
-                contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
-                verticalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
-                items(filteredTasks, key = { it.id }) { task ->
-                    TaskCard(
-                        task = task,
-                        onToggleComplete = onToggleComplete,
-                        onToggleImportant = onToggleImportant,
-                        onDeleteClick = onDeleteClick
-                    )
+        AnimatedContent(
+            targetState = filter,
+            transitionSpec = {
+                (fadeIn(tween(durationMillis = 300, delayMillis = 120)) +
+                        scaleIn(initialScale = 0.97f, animationSpec = tween(300, delayMillis = 120))) togetherWith
+                        fadeOut(tween(durationMillis = 120))
+            },
+            label = "filterTransition",
+            modifier = Modifier
+                .weight(1f)
+                .fillMaxWidth()
+        ) { activeFilter ->
+            val filteredTasks = when (activeFilter) {
+                "important" -> tasks.filter { it.important }
+                "completed" -> tasks.filter { it.completed }
+                else -> tasks
+            }
+
+            if (filteredTasks.isEmpty()) {
+                EmptyState(
+                    message = when (activeFilter) {
+                        "important" -> "No important tasks yet"
+                        "completed" -> "No completed tasks yet"
+                        else -> "No tasks yet. Tap + to add one!"
+                    },
+                    modifier = Modifier.fillMaxSize()
+                )
+            } else {
+                LazyColumn(
+                    modifier = Modifier.fillMaxSize(),
+                    contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
+                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    items(filteredTasks, key = { it.id }) { task ->
+                        TaskCard(
+                            task = task,
+                            onToggleComplete = onToggleComplete,
+                            onToggleImportant = onToggleImportant,
+                            onDeleteClick = onDeleteClick,
+                            modifier = Modifier.animateItem()
+                        )
+                    }
                 }
             }
         }
