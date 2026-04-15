@@ -12,7 +12,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.material3design.core.ui.theme.Material3DesignTheme
-import com.example.material3design.core.ui.theme.TaskFlowSecondary
 import com.example.material3design.finalapp.data.Task
 import com.example.material3design.finalapp.data.sampleTasks
 
@@ -34,7 +33,7 @@ fun FavoritesScreen(
                 imageVector = Icons.Default.Star,
                 contentDescription = null,
                 modifier = Modifier.size(64.dp),
-                tint = TaskFlowSecondary.copy(alpha = 0.4f)
+                tint = MaterialTheme.colorScheme.secondary.copy(alpha = 0.4f)
             )
             Spacer(Modifier.height(12.dp))
             Text(

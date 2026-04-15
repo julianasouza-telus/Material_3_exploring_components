@@ -19,8 +19,6 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.material3design.core.ui.theme.Material3DesignTheme
-import com.example.material3design.core.ui.theme.TaskFlowSecondary
-import com.example.material3design.core.ui.theme.TaskFlowSuccess
 import com.example.material3design.finalapp.data.Task
 
 @Composable
@@ -48,7 +46,7 @@ fun TaskCard(
     // Animação B — star color transition
     val starTint by animateColorAsState(
         targetValue = if (task.important)
-            TaskFlowSecondary
+            MaterialTheme.colorScheme.secondary
         else
             MaterialTheme.colorScheme.onSurface.copy(alpha = 0.38f),
         animationSpec = tween(durationMillis = 200),
@@ -106,12 +104,12 @@ fun TaskCard(
                                 onClick = {},
                                 label = { Text("Important", style = MaterialTheme.typography.labelSmall) },
                                 colors = SuggestionChipDefaults.suggestionChipColors(
-                                    containerColor = TaskFlowSecondary.copy(alpha = 0.15f),
-                                    labelColor = TaskFlowSecondary
+                                    containerColor = MaterialTheme.colorScheme.secondary.copy(alpha = 0.15f),
+                                    labelColor = MaterialTheme.colorScheme.secondary
                                 ),
                                 border = SuggestionChipDefaults.suggestionChipBorder(
                                     enabled = true,
-                                    borderColor = TaskFlowSecondary.copy(alpha = 0.4f)
+                                    borderColor = MaterialTheme.colorScheme.secondary.copy(alpha = 0.4f)
                                 )
                             )
                         }
@@ -120,12 +118,12 @@ fun TaskCard(
                                 onClick = {},
                                 label = { Text("Completed", style = MaterialTheme.typography.labelSmall) },
                                 colors = SuggestionChipDefaults.suggestionChipColors(
-                                    containerColor = TaskFlowSuccess.copy(alpha = 0.15f),
-                                    labelColor = TaskFlowSuccess
+                                    containerColor = MaterialTheme.colorScheme.tertiary.copy(alpha = 0.15f),
+                                    labelColor = MaterialTheme.colorScheme.tertiary
                                 ),
                                 border = SuggestionChipDefaults.suggestionChipBorder(
                                     enabled = true,
-                                    borderColor = TaskFlowSuccess.copy(alpha = 0.4f)
+                                    borderColor = MaterialTheme.colorScheme.tertiary.copy(alpha = 0.4f)
                                 )
                             )
                         }

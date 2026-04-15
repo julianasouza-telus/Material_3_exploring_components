@@ -13,13 +13,9 @@ import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.material3design.core.ui.theme.Material3DesignTheme
-import com.example.material3design.core.ui.theme.TaskFlowBackground
-import com.example.material3design.core.ui.theme.TaskFlowPrimary
-import com.example.material3design.core.ui.theme.TaskFlowSuccess
 import com.example.material3design.finalapp.data.Task
 import com.example.material3design.finalapp.data.sampleTasks
 import com.example.material3design.finalapp.ui.AddTaskDialog
@@ -67,9 +63,9 @@ fun TaskFlowApp() {
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = TaskFlowPrimary,
-                    titleContentColor = Color.White,
-                    actionIconContentColor = Color.White
+                    containerColor = MaterialTheme.colorScheme.primary,
+                    titleContentColor = MaterialTheme.colorScheme.onPrimary,
+                    actionIconContentColor = MaterialTheme.colorScheme.onPrimary
                 )
             )
         },
@@ -92,23 +88,25 @@ fun TaskFlowApp() {
         floatingActionButton = {
             FloatingActionButton(
                 onClick = { addDialogOpen = true },
-                containerColor = TaskFlowPrimary,
-                contentColor = Color.White
+                containerColor = MaterialTheme.colorScheme.primary,
+                contentColor = MaterialTheme.colorScheme.onPrimary
             ) {
                 Icon(Icons.Default.Add, contentDescription = "Nova tarefa")
             }
         },
         snackbarHost = {
             SnackbarHost(snackbarHostState) { data ->
+                val snackbarContainer = if (snackbarIsSuccess) MaterialTheme.colorScheme.tertiary else MaterialTheme.colorScheme.primary
+                val snackbarContent = if (snackbarIsSuccess) MaterialTheme.colorScheme.onTertiary else MaterialTheme.colorScheme.onPrimary
                 Snackbar(
                     snackbarData = data,
-                    containerColor = if (snackbarIsSuccess) TaskFlowSuccess else MaterialTheme.colorScheme.primary,
-                    contentColor = Color.White,
-                    actionColor = Color.White
+                    containerColor = snackbarContainer,
+                    contentColor = snackbarContent,
+                    actionColor = snackbarContent
                 )
             }
         },
-        containerColor = TaskFlowBackground
+        containerColor = MaterialTheme.colorScheme.background
     ) { padding ->
         AnimatedContent(
             targetState = currentTab,

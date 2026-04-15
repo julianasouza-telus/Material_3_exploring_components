@@ -8,7 +8,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.material3design.core.ui.theme.Material3DesignTheme
-import com.example.material3design.core.ui.theme.TaskFlowSecondary
 
 @Composable
 fun AddTaskDialog(
@@ -54,8 +53,8 @@ fun AddTaskDialog(
                         checked = important,
                         onCheckedChange = { important = it },
                         colors = SwitchDefaults.colors(
-                            checkedThumbColor = TaskFlowSecondary,
-                            checkedTrackColor = TaskFlowSecondary.copy(alpha = 0.5f)
+                            checkedThumbColor = MaterialTheme.colorScheme.secondary,
+                            checkedTrackColor = MaterialTheme.colorScheme.secondary.copy(alpha = 0.5f)
                         )
                     )
                 }
