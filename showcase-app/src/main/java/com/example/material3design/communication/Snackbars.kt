@@ -76,35 +76,6 @@ fun SnackbarsScreen() {
 
 // ---------- Previews with visible Snackbars ----------
 
-@Preview(showBackground = true)
-@Composable
-fun BasicSnackbarScreenPreview() {
-    Material3DesignTheme {
-        Scaffold(
-            snackbarHost = {
-                SnackbarHost(
-                    hostState = remember { SnackbarHostState() }
-                ) {
-                    Snackbar {
-                        Text("This is a basic snackbar")
-                    }
-                }
-            }
-        ) { padding ->
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(padding),
-                contentAlignment = Alignment.Center
-            ) {
-                Text(
-                    "Screen content",
-                    style = MaterialTheme.typography.bodyLarge
-                )
-            }
-        }
-    }
-}
 
 @Preview(showBackground = true)
 @Composable
