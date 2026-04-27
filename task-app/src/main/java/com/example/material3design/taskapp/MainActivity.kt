@@ -15,9 +15,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             Material3DesignTheme {
-                Surface(modifier = Modifier.fillMaxSize()) {
-                    // Conteúdo do app aqui
-                }
+                TaskFlowApp()
             }
         }
     }
