@@ -45,14 +45,20 @@ fun TaskFlowApp() {
     var snackbarIsSuccess by remember { mutableStateOf(true) }
     val scope = rememberCoroutineScope()
 
-    //aula 5
+    fun toggleComplete(id: String) {
+        val index = tasks.indexOfFirst { it.id == id }
+        if (index >= 0) tasks[index] = tasks[index].copy(completed = !tasks[index].completed)
+    }
+    fun toggleImportant(id: String) {
+        val index = tasks.indexOfFirst { it.id == id }
+        if (index >= 0) tasks[index] = tasks[index].copy(important = !tasks[index].important)
+    }
 
     Scaffold(
         topBar = {
             TopAppBar(
                 title = { Text("TaskFlow", fontWeight = FontWeight.Medium) },
                 actions = { IconButton(onClick = { /* filtro - aula 8 */ }) {
-                    //TODO: trocar o icone
                     Icon(Icons.Default.FilterList, contentDescription = "Filtrar") }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
