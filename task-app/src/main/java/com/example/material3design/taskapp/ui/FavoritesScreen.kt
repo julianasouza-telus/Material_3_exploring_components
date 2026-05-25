@@ -20,7 +20,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.material3design.core.ui.theme.Material3DesignTheme
-import com.example.material3design.taskapp.TaskCard
 import com.example.material3design.taskapp.data.TaskData
 import com.example.material3design.taskapp.data.sampleTasks
 
