@@ -33,23 +33,23 @@ fun FavoritesScreen(
 ) {
     if (tasks.isEmpty()){
         Column(
-            modifier.fillMaxSize(),
+            modifier = modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
             Icon(
                 imageVector = Icons.Default.Star,
                 contentDescription = "Favorite Session",
-                modifier.size(64.dp),
+                modifier = Modifier.size(64.dp),
                 tint = MaterialTheme.colorScheme.secondary.copy(alpha = 0.4f)
             )
-            Spacer(modifier.height(12.dp))
+            Spacer(Modifier.height(12.dp))
             Text(
                 text = "No favorites yet",
                 style = MaterialTheme.typography.titleMedium,
                 color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f)
             )
-            Spacer(modifier.height(4.dp))
+            Spacer(Modifier.height(4.dp))
             Text(
                 text = "Tap the star on a task to add it here",
                 style = MaterialTheme.typography.bodyMedium,
