@@ -38,6 +38,7 @@ import com.example.material3design.taskapp.data.TaskData
 import com.example.material3design.taskapp.data.sampleTasks
 import com.example.material3design.taskapp.ui.AddTaskDialog
 import com.example.material3design.taskapp.ui.FavoritesScreen
+import com.example.material3design.taskapp.ui.TaskListScreen
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -51,6 +52,7 @@ fun TaskFlowApp() {
     val scope = rememberCoroutineScope()
     var currentTab by remember { mutableIntStateOf(0) }
     var taskToDelete by remember { mutableStateOf<String?>(null) }
+    var filter by remember {mutableStateOf("all")}
 
     fun toggleComplete(id: String) {
         val index = tasks.indexOfFirst { it.id == id }
@@ -118,7 +120,15 @@ fun TaskFlowApp() {
         }
     ) { paddingValues ->
         when(currentTab) {
-            0 -> Box(modifier = Modifier.padding(paddingValues).fillMaxSize())
+            0 -> TaskListScreen(
+                tasks = tasks,
+                filter = filter,
+                onFilterChange = { filter = it},
+                onToggleComplete = { toggleComplete(it)},
+                onToggleImportant = { toggleImportant(it)},
+                onDeleteClick = {taskToDelete = it},
+                modifier = Modifier.padding(paddingValues)
+            )
             1 -> FavoritesScreen(
                 tasks =  tasks.filter { it.important },
                 onToggleComplete = { toggleComplete(it)},
